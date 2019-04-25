@@ -1,19 +1,33 @@
+# Demo 1 Reset
 Push-Location .\Demo1
-terraform destroy #-auto-approve
+terraform destroy -auto-approve
 Remove-Item .\.terraform -recurse
 Remove-Item .\terraform.tfstate
 Remove-Item .\terraform.tfstate.backup
 Pop-Location
 
-Push-Location .\Demo2
-Push Location .\envs\dev # Get Directory listing
-terraform destroy #-auto-approve
+# Demo 2 Reset
+Push-Location .\Demo2\Envs
+
+$envPaths = Get-ChildItem . -Directory
+
+Foreach ($envPath in $envPaths)
+{
+	$envName = $envPath.Name
+
+	Push-Location .\$envName
+	terraform destroy -auto-approve
+	Remove-Item .\.terraform -recurse
+	Remove-Item .\terraform.tfstate
+	Remove-Item .\terraform.tfstate.backup
+	Pop-Location
+}
+Pop-Location
+
+# Demo 3 Reset
+Push-Location .\Demo3
+terraform destroy -auto-approve
 Remove-Item .\.terraform -recurse
 Remove-Item .\terraform.tfstate
 Remove-Item .\terraform.tfstate.backup
 Pop-Location
-Pop-Location
-
-#Remove-Item .\envs/prod/.terraform -recurse
-#Remove-Item .\envs/prod/terraform.tfstate
-#Remove-Item .\envs/prod/terraform.tfstate.backup
