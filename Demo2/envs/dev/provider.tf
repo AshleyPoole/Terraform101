@@ -8,7 +8,7 @@ provider "azurerm" {
   #client_secret = "${var.azure_client_secret}"
   #subscription_id = "${var.azure_subscription_id}"
   #tenant_id = "${var.azure_tenant_id}"
-  version = "1.25.0"
+  version = "1.27.0"
 }
 
 provider "cloudflare" {
@@ -17,7 +17,7 @@ provider "cloudflare" {
   #email = "${var.cloudflare_email}"          
   #token = "${var.cloudflare_token}"
   #org_id = "${var.cloudflare_org_id}"
-  version = "1.12.0"
+  version = "1.15.0"
 }
 
 provider "newrelic" {
@@ -25,3 +25,4 @@ provider "newrelic" {
   #api_key = "${var.newrelic_api_key}"
   version = "1.5.0"
 }
+
