@@ -50,20 +50,20 @@ resource "cloudflare_record" "mywebapp_awverify" {
 
 resource "cloudflare_record" "mywebapp" {
   domain  = "ashleypoole.co.uk"
-  name    = "${var.env_prefix}"
-  value   = "${azurerm_app_service.mywebapp.default_site_hostname}"
+  name    = var.env_prefix
+  value   = azurerm_app_service.mywebapp.default_site_hostname
   type    = "CNAME"
   proxied = true
   # Explain as dependency is not visible to Terraform we need to explictly reference it using `depends_on`
-  depends_on = ["cloudflare_record.mywebapp_awverify"]
+  depends_on = [cloudflare_record.mywebapp_awverify]
 }
 
 resource "azurerm_app_service_custom_hostname_binding" "mywebapp" {
   # Explain we need link this to the cloudflare record output for both removing duplication and to trigger the 
   # dependency tree to cause the external DNS to be created first.
   hostname            = "${cloudflare_record.mywebapp.name}.${cloudflare_record.mywebapp.domain}"
-  app_service_name    = "${azurerm_app_service.mywebapp.name}"
-  resource_group_name = "${azurerm_resource_group.rg.name}"
+  app_service_name    = azurerm_app_service.mywebapp.name
+  resource_group_name = azurerm_resource_group.rg.name
 }
 */
 #endregion
@@ -79,7 +79,7 @@ resource "newrelic_synthetics_monitor" "mywebapp" {
   status = "ENABLED"
   locations = ["AWS_AP_NORTHEAST_1"]
   uri = "https://${cloudflare_record.mywebapp.name}.${cloudflare_record.mywebapp.domain}"
-  depends_on = ["azurerm_app_service_custom_hostname_binding.mywebapp"]
+  depends_on = [azurerm_app_service_custom_hostname_binding.mywebapp]
 }
 */
 #endregion
