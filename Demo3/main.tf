@@ -4,7 +4,7 @@ provider "digitalocean" {
 }
 
 resource "digitalocean_droplet" "webserver" {
-  ssh_keys           = "${var.ssh_keys}"
+  ssh_keys           = var.ssh_keys
   image              = "ubuntu-16-04-x64"
   region             = "LON1"
   size               = "s-1vcpu-1gb"
@@ -21,9 +21,12 @@ resource "digitalocean_droplet" "webserver" {
     ]
 
     connection {
-      user     = "root"
-      agent = true
-      timeout  = "2m"
+      host    = self.ipv4_address
+      type    = "ssh"
+      user    = "root"
+      agent   = true
+      timeout = "2m"
     }
   }
 }
+
