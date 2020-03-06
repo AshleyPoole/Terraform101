@@ -4,7 +4,7 @@ By Ashley Poole
 
 ## Welcome To Terraform
 
-This repository contains the demo's used in my talk on introducing Terraform to developers. This repository contains two demos which are writtern using Terraform 0.11, and makes use of resources for Azure, Cloudflare and New Relic.
+This repository contains the demo's used in my talk on introducing Terraform to developers. This repository contains two demos which are writtern using Terraform 0.12, and makes use of resources for Azure, Cloudflare and New Relic.
 
 ### Demo Setup
 
